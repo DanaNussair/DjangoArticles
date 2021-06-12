@@ -1,0 +1,19 @@
+{% extends "articles/base.html" %} {% block content%}
+<div class="container row d-flex justify-content-center">
+  <div class="row text-center">
+    <div class="col-12">
+      <strong>Welcome to Django Articles</strong>
+    </div>
+  </div>
+  <div class="row text-center mt-2">
+    <div class="col-12">You can read all sorts of articles here</div>
+  </div>
+  <div class="row text-center mt-2">
+    <div class="col-12">
+      <a href="{% url 'articles' %}" class="text-decoration-none">
+        <button class="btn btn-primary">Go to Articles</button>
+      </a>
+    </div>
+  </div>
+</div>
+{% endblock%}

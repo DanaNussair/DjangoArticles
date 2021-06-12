@@ -1,0 +1,107 @@
+{% extends "articles/base.html" %} {% load article_extras %} {%block content%}
+<div class="container m-0 mb-5 p-0">
+  <div class="row">
+    <form method="GET">
+      <div class="d-flex justify-content-end">
+        <div class="me-4">
+          <select class="btn btn-outline-primary" name="category_title">
+            <option disabled selected value="kgje">Category</option>
+            {% for category in categories %}
+            <option value="{{category.category_title}}">
+              {{category.category_title}}
+            </option>
+            {% endfor %}
+          </select>
+        </div>
+        <div class="me-4">
+          <select class="btn btn-outline-primary" name="status">
+            <option disabled selected value>Status</option>
+            {% for status in statuses%}
+            <option value="{{status.status}}">{{status.status}}</option>
+            {% endfor %}
+          </select>
+        </div>
+        <div class="me-4">
+          <select class="btn btn-outline-primary" name="sort_by">
+            <option disabled selected value>Sort By</option>
+            <option value="title">Article Name</option>
+            <option value="creation_date">Creation Date</option>
+            <option value="publish_date">Publish Date</option>
+          </select>
+        </div>
+        <button class="btn btn-primary">Filter</button>
+      </div>
+    </form>
+  </div>
+  {% if message %}
+  <div class="row mt-4">
+    <div class="alert alert-danger text-center" role="alert">{{message}}</div>
+  </div>
+  {% endif %} {% for article in articles %}
+  <div class="row mt-4 p-3 article-card">
+    <div class="col-9">
+      <div class="row">
+        <strong>{{article.title}}</strong>
+      </div>
+      <div class="row">
+        <p>{{article.description}}</p>
+      </div>
+      <div class="row">
+        <div class="col-6">
+          <small class="text-muted">Status: {{article.status|capfirst}}</small>
+        </div>
+        {% if article.publish_date %}
+        <div class="col-6 d-flex justify-content-end">
+          <small class="text-muted"
+            >Publish Date: {{article.publish_date}}</small
+          >
+        </div>
+        {% endif %}
+      </div>
+      <div class="row d-flex justify-content-between">
+        <div class="col-6">
+          <small class="text-muted"
+            >Created By: {{article.author.username}}</small
+          >
+        </div>
+        <div class="col-6 d-flex justify-content-end">
+          <small class="text-muted">Created: {{article.creation_date}}</small>
+        </div>
+      </div>
+    </div>
+    {% if user.is_authenticated %}
+    <div class="col-3 d-flex align-items-end justify-content-end text-end">
+      <div class="row">
+        {% if article|is_author:user and article|can_delete %}
+        <div class="col-12">
+          <a href="{% url 'articles_delete' article.id %}">
+            <button class="btn btn-danger btn-sm w-100">Delete</button>
+          </a>
+        </div>
+        {% endif %} {% if article|is_author:user %}
+        <div class="col-12 mt-2">
+          <a href="{% url 'articles_edit' article.id %}">
+            <button class="btn btn-primary btn-sm w-100">Edit</button>
+          </a>
+        </div>
+        {% endif %}
+        <div class="col-12 mt-2">
+          {% if article|is_author:user or article|check_user_likes:user %}
+          <button class="btn btn-outline-primary btn-sm w-100" disabled>
+            {{article.get_likes_count}} Likes
+          </button>
+          {% else %}
+          <a href="{% url 'activity_log_create' 'like' article.id %}">
+            <button class="btn btn-outline-primary btn-sm w-100">
+              {{article.get_likes_count}} Likes
+            </button>
+          </a>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+    {% endif %}
+  </div>
+  {% endfor %}
+</div>
+{%endblock%}

@@ -1,0 +1,36 @@
+{% extends 'articles/base.html' %} {% load static %} {%block content%}
+<form method="POST">
+  {% csrf_token %}
+  <div class="container">
+    <div class="row">
+      {% if message %}
+      <div class="row">
+        <div class="alert alert-danger" role="alert">{{message}}</div>
+      </div>
+      {% endif %}
+      <div class="row">
+        <div class="col-12">
+          <label for="title" class="pointer">Title</label>
+          <input id="title" type="text" class="form-control p-2" name="title" />
+        </div>
+      </div>
+      <div class="row mt-3">
+        <div class="col-12">
+          <label for="description" class="pointer">Description</label>
+          <textarea
+            id="description"
+            rows="10"
+            class="p-2 textarea-description"
+            name="description"
+          ></textarea>
+        </div>
+      </div>
+      <div class="row mt-3 mb-5">
+        <div class="col-12 d-flex justify-content-end align-items-center">
+          <div><button class="btn btn-primary">Save</button></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+{%endblock%}

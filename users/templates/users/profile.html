@@ -1,0 +1,20 @@
+{% extends 'articles/base.html' %} {%block content%}
+<div class="container">
+  <div class="row">
+    <div class="col-2 d-flex justify-content-end">Username:</div>
+    <div class="col-10"><strong>{{user.username}}</strong></div>
+  </div>
+  <div class="row">
+    <div class="col-2 d-flex justify-content-end">Email:</div>
+    <div class="col-10"><strong>{{user.email}}</strong></div>
+  </div>
+  <div class="row">
+    <div class="col-2 d-flex justify-content-end">First name:</div>
+    <div class="col-10"><strong>{{user.first_name}}</strong></div>
+  </div>
+  <div class="row">
+    <div class="col-2 d-flex justify-content-end">Last name:</div>
+    <div class="col-10"><strong>{{user.last_name}}</strong></div>
+  </div>
+</div>
+{%endblock%}

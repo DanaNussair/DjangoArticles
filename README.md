@@ -1,6 +1,6 @@
 ## Introduction
 
-This is a web application fully made with Django where you can `(login/register)` user, `(create/delete)` categories and `(create/view/edit/delete/filter/sort/like)` articles.
+This is a web application fully made with Django where you can `(login/register)` user, `(create)` categories and `(create/view/edit/delete/filter/sort/like)` articles.
 
 ## How to setup
 
@@ -10,6 +10,11 @@ This is a web application fully made with Django where you can `(login/register)
   - Windows: `source venv/Scripts/activate`
   - Mac/Linux: `source venv/bin/activate`
 - Install packages `pip install -m requirements.txt`
+- Create a .env file and include the variable `PROJECT_SECRET_KEY`, in order to generate a key you can do the following:
+  - Run `python manage.py shell`
+  - Inside the shell perform: `from django.core.management.utils import get_random_secret_key`
+  - Then call the function `get_random_secret_key()`
+  - Copy the string and place it inside the .env variable.
 - Migrate the models `python manage.py migrate`
 - Then runserver `python manage.py runserver`
 
